@@ -1,3 +1,12 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-31 20:45:36
+ * @LastEditTime: 2020-07-31 20:57:27
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \electron-learn\README.md
+-->
+
 ## 运行
 
 1. `main.js`
@@ -54,4 +63,14 @@ app.on("activate", () => {
 app.on("ready", () => {
   require("./main/menu");
 });
+```
+
+## 调试
+
+```json
+"scripts": {
+    "start": "electron .",
+    "inspect": "electron --inspect=1212",
+    "packager": "electron-packager ./ electron-learn --all --out ./outApp  --overwrite --icon=./app/img/icon/icon.ico"
+  },
 ```

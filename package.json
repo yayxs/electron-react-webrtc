@@ -1,10 +1,11 @@
 {
   "name": "electron-learn",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "electron learning",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "inspect": "electron --inspect=1212",
     "packager": "electron-packager ./ electron-learn --all --out ./outApp  --overwrite --icon=./app/img/icon/icon.ico"
   },
   "repository": {
