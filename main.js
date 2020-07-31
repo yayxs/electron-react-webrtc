@@ -1,10 +1,13 @@
-// app 负责管理Electron 应用程序的生命周期
-// BrowserWindow 创建窗口
+// 您可以把应用程序其他的流程写在在此文件中
+// 代码 也可以拆分成几个文件，然后用 require 导入。
+// app 负责管理Electron 应用程序的生命周期 electron的引用
+// BrowserWindow 创建窗口引用
 const { app, BrowserWindow } = require("electron");
 
+let mainWindow = null // 主窗口
 function createWindow() {
   // 创建浏览器窗口
-  let win = new BrowserWindow({
+  mainWindow = new BrowserWindow({ // 设置打开的窗口大小
     width: 800,
     height: 600,
     webPreferences: {
@@ -12,10 +15,10 @@ function createWindow() {
     },
   });
 
-  // 加载index.html文件
-  win.loadFile("index.html");
+  // 加载index.html文件  加载哪个页面
+  mainWindow.loadFile("index.html");
   // 打开开发者工具
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 }
 
 // Electron会在初始化完成并且准备好创建浏览器窗口时调用这个方法
@@ -39,5 +42,6 @@ app.on("activate", () => {
   }
 });
 
-// 您可以把应用程序其他的流程写在在此文件中
-// 代码 也可以拆分成几个文件，然后用 require 导入。
+app.on('ready',()=>{
+  require('./main/menu')
+})
