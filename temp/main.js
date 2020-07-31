@@ -1,22 +1,13 @@
-## 运行
-
-1. `main.js`
-2. 主进程创建渲染进程
-3. 样式布局
-4.
-
-```js
 // 您可以把应用程序其他的流程写在在此文件中
 // 代码 也可以拆分成几个文件，然后用 require 导入。
 // app 负责管理Electron 应用程序的生命周期 electron的引用
 // BrowserWindow 创建窗口引用
 const { app, BrowserWindow } = require("electron");
 
-let mainWindow = null; // 主窗口
+let mainWindow = null // 主窗口
 function createWindow() {
   // 创建浏览器窗口
-  mainWindow = new BrowserWindow({
-    // 设置打开的窗口大小
+  mainWindow = new BrowserWindow({ // 设置打开的窗口大小
     width: 800,
     height: 600,
     webPreferences: {
@@ -51,7 +42,6 @@ app.on("activate", () => {
   }
 });
 
-app.on("ready", () => {
-  require("./main/menu");
-});
-```
+app.on('ready',()=>{
+  require('./main/menu')
+})

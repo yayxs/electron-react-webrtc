@@ -4,7 +4,8 @@
   "description": "electron learning",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "packager": "electron-packager ./ electron-learn --all --out ./outApp  --overwrite --icon=./app/img/icon/icon.ico"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,9 @@
   },
   "homepage": "https://github.com/yayxs/electron-learn#readme",
   "devDependencies": {
-    "electron": "^9.1.2"
-  }
+    "electron": "^9.1.2",
+    "electron-packager": "^15.0.0",
+    "glob": "^7.1.6"
+  },
+  "dependencies": {}
 }
