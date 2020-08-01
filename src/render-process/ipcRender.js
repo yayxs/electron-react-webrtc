@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-01 13:08:15
- * @LastEditTime: 2020-08-01 20:29:58
+ * @LastEditTime: 2020-08-01 21:03:56
  * @LastEditors: Please set LastEditors
  * @Description: 从渲染器进程到主进程的异步通信。
  * @FilePath: \electron-editor\src\render-process\ipcRender.js
@@ -56,6 +56,10 @@ ipcRenderer.on("action", (evt, type) => {
       break;
     case "save-files":
       doSava();
+      break;
+    case "quit":
+      whetherSava();
+      ipcRenderer.send("quit-app");
       break;
     default:
       break;

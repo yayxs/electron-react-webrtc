@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-01 12:40:14
- * @LastEditTime: 2020-08-01 20:17:36
+ * @LastEditTime: 2020-08-01 21:04:16
  * @LastEditors: Please set LastEditors
  * @Description: 从主进程到渲染进程的异步通信
  * @FilePath: \electron-editor\src\main-process\ipcMain.js
@@ -41,6 +41,7 @@ const template = [
     submenu: [
       {
         label: "新建",
+        accelerator: "Ctrl+N",
         click: () => {
           /**
            * 使用webCon 渲染以及控制 web 页面
@@ -51,6 +52,8 @@ const template = [
       },
       {
         label: "打开",
+        accelerator: "Ctrl+O",
+
         click: () => {
           /**
            * 使用webCon 渲染以及控制 web 页面
@@ -61,6 +64,8 @@ const template = [
       },
       {
         label: "保存",
+        accelerator: "Ctrl+S",
+
         click: () => {
           /**
            * 使用webCon 渲染以及控制 web 页面
@@ -70,10 +75,28 @@ const template = [
         },
       },
       { type: "separator" },
+      {
+        label: "打印",
+        accelerator: "Ctrl+P",
 
+        click: () => {
+          /**
+           * 使用webCon 渲染以及控制 web 页面
+           *
+           */
+          getFocusedWindow().webContents.print();
+        },
+      },
       isMac
         ? { label: "退出", role: "close" }
-        : { label: "退出", role: "quit" },
+        : {
+            label: "退出",
+            // role: "quit",
+            click: () => {
+              getFocusedWindow().webContents.send("action", "quit");
+            },
+            accelerator: "Ctrl+Q",
+          },
     ],
   },
   // { role: 'editMenu' }
@@ -169,4 +192,7 @@ ipcMain.on("async-meg-right-menu", (event, arg) => {
   console.log(arg); // prints "ping"
   rightMenu.popup(BrowserWindow.getFocusedWindow());
   // event.reply("asynchronous-reply", "pong");
+});
+ipcMain.on("quit-app", () => {
+  app.quit();
 });
