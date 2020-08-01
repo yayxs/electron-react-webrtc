@@ -1,30 +1,60 @@
 {
   "name": "electron-editor",
+  "productName": "electron-editor",
   "version": "0.1.0",
   "description": "A simple editor based on electron",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
   "keywords": [
     "electron"
   ],
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "inspect": "electron --inspect=1212",
-    "packager": "electron-packager ./ electron-learn --all --out ./outApp  --overwrite --icon=./app/img/icon/icon.ico"
+  "author": {
+    "name": "yayxs",
+    "email": "leaderywl@163.com"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yayxs/electron-learn.git"
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "electron_editor"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   },
-  "author": "yayxs",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yayxs/electron-learn/issues"
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
   },
-  "homepage": "https://github.com/yayxs/electron-learn#readme",
   "devDependencies": {
-    "electron": "^9.1.2",
-    "electron-packager": "^15.0.0",
-    "glob": "^7.1.6"
-  },
-  "dependencies": {}
+    "@electron-forge/cli": "^6.0.0-beta.52",
+    "@electron-forge/maker-deb": "^6.0.0-beta.52",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.52",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.52",
+    "@electron-forge/maker-zip": "^6.0.0-beta.52",
+    "electron": "9.1.2"
+  }
 }
