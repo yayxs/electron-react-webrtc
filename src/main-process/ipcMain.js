@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-01 12:40:14
- * @LastEditTime: 2020-08-01 19:01:11
+ * @LastEditTime: 2020-08-01 20:17:36
  * @LastEditors: Please set LastEditors
  * @Description: 从主进程到渲染进程的异步通信
  * @FilePath: \electron-editor\src\main-process\ipcMain.js
@@ -39,6 +39,16 @@ const template = [
   {
     label: "文件",
     submenu: [
+      {
+        label: "新建",
+        click: () => {
+          /**
+           * 使用webCon 渲染以及控制 web 页面
+           *
+           */
+          getFocusedWindow().webContents.send("action", "new-files");
+        },
+      },
       {
         label: "打开",
         click: () => {
