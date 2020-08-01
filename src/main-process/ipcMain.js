@@ -1,12 +1,17 @@
 /*
  * @Author: your name
  * @Date: 2020-08-01 12:40:14
- * @LastEditTime: 2020-08-01 13:04:38
+ * @LastEditTime: 2020-08-01 19:01:11
  * @LastEditors: Please set LastEditors
  * @Description: 从主进程到渲染进程的异步通信
  * @FilePath: \electron-editor\src\main-process\ipcMain.js
  */
-const { app, Menu, ipcMain, BrowserWindow } = require("electron");
+const {
+  app,
+  Menu,
+  ipcMain,
+  BrowserWindow: { getFocusedWindow },
+} = require("electron");
 
 const isMac = process.platform === "darwin";
 
@@ -33,7 +38,33 @@ const template = [
   // { role: 'fileMenu' }
   {
     label: "文件",
-    submenu: [isMac ? { role: "close" } : { role: "quit" }],
+    submenu: [
+      {
+        label: "打开",
+        click: () => {
+          /**
+           * 使用webCon 渲染以及控制 web 页面
+           *
+           */
+          getFocusedWindow().webContents.send("action", "open-files");
+        },
+      },
+      {
+        label: "保存",
+        click: () => {
+          /**
+           * 使用webCon 渲染以及控制 web 页面
+           *
+           */
+          getFocusedWindow().webContents.send("action", "save-files");
+        },
+      },
+      { type: "separator" },
+
+      isMac
+        ? { label: "退出", role: "close" }
+        : { label: "退出", role: "quit" },
+    ],
   },
   // { role: 'editMenu' }
   {

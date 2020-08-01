@@ -1,7 +1,7 @@
 /*
  * @Author: yayxs
  * @Date: 2020-07-31 20:47:03
- * @LastEditTime: 2020-07-31 21:28:30
+ * @LastEditTime: 2020-08-01 19:14:18
  * @LastEditors: Please set LastEditors
  * @Description: 通用的工具方法
  * @FilePath: \electron-learn\utils\index.js
@@ -17,6 +17,10 @@ const commonUtils = {
     if (e && e.preventDefault) e.preventDefault();
     else window.event.returnValue = false;
     return false;
+  },
+  // 获取DOM元素
+  getDom(selectorStr) {
+    if (selectorStr) return document.querySelector(selectorStr);
   },
 };
 
