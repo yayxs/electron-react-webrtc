@@ -33,7 +33,8 @@ const createWindow = () => {
   mainWindow.webContents.openDevTools();
   require("./main-process/ipcMain");
 };
-
+// 注册全局的快捷键 以及退出时消除监听
+require('./main-process/globalShortcut');
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
