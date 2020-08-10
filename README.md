@@ -1,11 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-31 20:45:36
- * @LastEditTime: 2020-07-31 20:57:27
- * @LastEditors: your name
+ * @LastEditTime: 2020-08-10 22:56:02
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \electron-learn\README.md
 -->
+
+# 当前所在是 `master分支`
 
 ## 运行
 
