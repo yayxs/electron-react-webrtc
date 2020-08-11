@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-31 20:45:36
- * @LastEditTime: 2020-08-10 22:56:02
+ * @LastEditTime: 2020-08-11 21:15:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \electron-learn\README.md
@@ -65,14 +65,4 @@ app.on("activate", () => {
 app.on("ready", () => {
   require("./main/menu");
 });
-```
-
-## 调试
-
-```json
-"scripts": {
-    "start": "electron .",
-    "inspect": "electron --inspect=1212",
-    "packager": "electron-packager ./ electron-learn --all --out ./outApp  --overwrite --icon=./app/img/icon/icon.ico"
-  },
 ```
