@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-
+import Search from "./components/Search.jsx";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -20,24 +20,13 @@ export default function AutoGrid() {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
+        <Grid item xs={4}>
+          <Paper className={classes.paper}>
+            {/* 搜索组件 */}
+            <Search title="我的云笔记" />
+          </Paper>
         </Grid>
-        <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
-        </Grid>
-        <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
-        </Grid>
-      </Grid>
-      <Grid container spacing={3}>
-        <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-        <Grid item xs>
+        <Grid item xs={8}>
           <Paper className={classes.paper}>xs</Paper>
         </Grid>
       </Grid>
