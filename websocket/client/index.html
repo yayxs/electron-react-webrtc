@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 打开一个WebSocket:
+      const ws = new WebSocket('wss://127.0.0.1:8899')
+      ws.onopen = function (evt) {
+        console.log('Connection open ...')
+        ws.send('Hello WebSockets!')
+      }
+      // 响应onmessage事件:
+      ws.onmessage = function (msg) {
+        console.log('Received Message: ' + evt.data)
+        ws.close()
+      }
+      ws.onclose = function (evt) {
+        console.log('Connection closed.')
+      }
+    </script>
+  </body>
+</html>

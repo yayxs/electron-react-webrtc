@@ -1,8 +1,7 @@
 {
-  "name": "electron-react-notes",
-  "version": "0.0.1",
+  "name": "electron-react-webrtc",
+  "version": "0.1.0",
   "private": true,
-  "main": "main.js",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
