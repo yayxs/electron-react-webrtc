@@ -13,16 +13,16 @@ const server = https.createServer({
 const wss = new WebSocket.Server({ server })
 
 wss.on('connection', function connection(ws, request, client) {
-  console.log(ws)
-  console.log(client)
   ws.on('message', function incoming(message) {
+    console.log(message)
     console.log(Array.from(wss.clients).length)
     wss.clients.forEach((ws_client) => {
-      if (ws == ws_client) {
+      if (ws === ws_client) {
         console.log(chalk.redBright('同一个客户端'))
       }
     })
     try {
+      console.log('当前的消息', message)
       let jsonData = JSON.parse(message)
       let { type } = jsonData
       console.log(type)
