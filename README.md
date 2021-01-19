@@ -1,3 +1,19 @@
+## About Electron
+
+1. `electron` + `chrom内核` + `node.js能力` + `Native Api`
+ -  nodejs 底层的能力
+ -  native api 跨平台 原生
+
+2. 为什么PC版本
+
+ - 便捷入口
+ - 离线可用
+ - 安全需求
+ - 调用系统的能力
+
+3. Native  vs QT vs NW.js
+
+
 ## fast start
 
 ```sh
