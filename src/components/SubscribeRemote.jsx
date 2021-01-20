@@ -4,8 +4,6 @@ import ZkToast from '../utils/toast'
 import MyWebsocket from '../utils/websocket'
 import Janus from '../utils/janus'
 
-const initTidMap = {}
-
 function SubscribeRemote() {
   const [server] = useState('wss://120.26.89.217:4145')
   const [room, setRoom] = useState('') // 保存当前的房间号
@@ -35,9 +33,15 @@ function SubscribeRemote() {
     video_device_label: '',
   })
 
-  // const [tidMap, setTidMap] = useState({})
+  const [tidMap, setTidMap] = useState({
+    [uuidv4()]: {
+      tid: '',
+      finish: null,
+    },
+  })
 
-  const [tidMap, dispatchTidMap] = useReducer(reducer, initTidMap)
+  // const [tidMap, dispatch] = useReducer(reducer, {})
+
   function reducer(state, { type, payload }) {
     switch (type) {
       case 'ADD_KEY':
@@ -125,7 +129,6 @@ function SubscribeRemote() {
       ],
       server,
       success: () => {
-        console.log('成功的回调')
         loadLocalPluginHandle()
       },
     }
@@ -133,6 +136,7 @@ function SubscribeRemote() {
   }
   const finishOrder = (transtraction, msg) => {
     if (transtraction in tidMap) {
+      console.log('结束没有')
       let { tid, finish, payloadEvent } = tidMap[transtraction]
       finish(tid, msg)
       if (payloadEvent && typeof payloadEvent === 'function') {
@@ -208,7 +212,7 @@ function SubscribeRemote() {
             finishOrder(transaction, { code: error_code, reason: error })
           }
         } else {
-          console.log('transaction in tidMap', tidMap)
+          console.log('tidMap', tidMap)
           if (transaction in tidMap) {
             finishOrder(transaction, { code: 0, reason: 'success' })
           }
@@ -282,63 +286,68 @@ function SubscribeRemote() {
    * 根据指令映射janus事件
    */
   const switchTypeEvent = (type, data, tid) => {
-    // console.log('type', type)
-    // console.log('data', data)
-    // console.log('tid', tid)
-
     const transtraction = uuidv4()
-
     if (tid) {
-      dispatchTidMap({
-        type: 'ADD_KEY',
-        payload: {
-          transtraction,
-          type,
-          data,
-          tid,
-        },
-      })
-      // setTidMap({
-      //   [transtraction]: {
+      // dispatch({
+      //   type: 'ADD_KEY',
+      //   payload: {
+      //     transtraction,
+      //     type,
+      //     data,
       //     tid,
-      //     finish: (tid, msg) => {
-      //       console.log('这个方法执行了没有')
-      //       const { audio, video } = selectDevice
-      //       const useVideo = widthIdGetItem(video, deviceDict.video)
-      //       const useAudio = widthIdGetItem(audio, deviceDict.audio)
-      //       let payload = msg
-      //       if (type === 'publish' || type === 'change_device') {
-      //         payload = {
-      //           ...msg,
-      //           devices: { audio: useAudio, video: useVideo },
-      //         }
-      //         if (tid === 'auto_publish_screen') {
-      //           // 这里判断是否是桌面发布  桌面发布设备传null
-      //           payload = { ...msg, devices: { audio: null, video: null } }
-      //         }
-      //       }
-      //       let sendData = {
-      //         from: {
-      //           who: 'cef',
-      //           ins: 684896245067020,
-      //         },
-      //         to: {
-      //           who: 'csharp',
-      //         },
-      //         type: `${type}_result`,
-      //         tid: tid,
-      //         data: payload,
-      //       }
-      //       console.log('-----node----type----', type)
-      //       ws.current.send(sendData)
-      //     },
       //   },
       // })
-    }
 
+      setTidMap((oldVal) => {
+        console.log('oldVal', oldVal)
+
+        const newVal = {
+          [transtraction]: {
+            tid,
+            finish: (tid, msg) => {
+              console.log('这个方法执行了没有')
+              const { audio, video } = selectDevice
+              const useVideo = widthIdGetItem(video, deviceDict.video)
+              const useAudio = widthIdGetItem(audio, deviceDict.audio)
+              let payload = msg
+              if (type === 'publish' || type === 'change_device') {
+                payload = {
+                  ...msg,
+                  devices: { audio: useAudio, video: useVideo },
+                }
+                if (tid === 'auto_publish_screen') {
+                  // 这里判断是否是桌面发布  桌面发布设备传null
+                  payload = { ...msg, devices: { audio: null, video: null } }
+                }
+              }
+              let sendData = {
+                from: {
+                  who: 'cef',
+                  ins: 684896245067020,
+                },
+                to: {
+                  who: 'csharp',
+                },
+                type: `${type}_result`,
+                tid: tid,
+                data: payload,
+              }
+              console.log('-----node----type----', type)
+              ws.current.send(sendData)
+            },
+          },
+        }
+        // console.log(newVal)
+        // console.log('newVal', newVal)
+
+        return {
+          ...newVal,
+        }
+      })
+      // setTidMap()
+    }
     console.log('type--2', type)
     // 开始根据不同的type类型处理数据
-
     switch (type) {
       // 注意这个写成json 拉  苦笑~
       case 'join':
@@ -348,7 +357,7 @@ function SubscribeRemote() {
           ptype: 'publisher',
           display,
           id,
-          room: room,
+          room,
         }
         setRoom(room)
         pluginHandle.current.send({ message: register }, transtraction)
