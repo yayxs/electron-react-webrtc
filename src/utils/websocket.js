@@ -45,6 +45,7 @@ class MyWebsocket {
     }
   }
   main() {
+    console.log('main 函数执行')
     let ws = null
     if (this.protocols) {
       ws = new WebSocket(this.url, this.protocols)
@@ -54,6 +55,7 @@ class MyWebsocket {
     this.ws = ws
     let data = this.data
     ws.onopen = (_) => {
+      console.log('ws.onopen', data)
       if (data) {
         let dataType = typeof data
         if (dataType === 'object') {
@@ -66,7 +68,7 @@ class MyWebsocket {
     }
 
     ws.onmessage = (evt) => {
-      console.log('有没有连接')
+      console.log('ws.onmessage')
       let { data } = evt
       if (data === 'pong' || data === 'receive the connection') {
         return

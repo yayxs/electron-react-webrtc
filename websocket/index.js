@@ -14,24 +14,27 @@ const wss = new WebSocket.Server({ server })
 
 wss.on('connection', function connection(ws, request, client) {
   ws.on('message', function incoming(message) {
-    console.log(message)
-    console.log(Array.from(wss.clients).length)
+    console.log(chalk.redBright(`${JSON.parse(message).type}`))
+    console.log('收到消息', message)
+    // console.log(Array.from(wss.clients).length)
     wss.clients.forEach((ws_client) => {
       if (ws === ws_client) {
-        console.log(chalk.redBright('同一个客户端'))
+        // console.log(chalk.redBright('同一个客户端'))
       }
     })
     try {
-      console.log('当前的消息', message)
       let jsonData = JSON.parse(message)
       let { type } = jsonData
-      console.log(type)
+
       switch (type) {
         case 'info_result':
           // TODO 记录client信息
           break
         case 'join_result':
+          // console.log(chalk.redBright('================'))
           sendDataWithType(ws, 'publish', 111, {})
+          break
+        default:
           break
       }
     } catch (error) {
@@ -55,6 +58,6 @@ function sendDataWithType(ws, type, ins, data) {
 
 server.listen(port, (err) => {
   if (!err) {
-    console.log(`wss server listen ${port} `)
+    console.log('-----------------------')
   }
 })
