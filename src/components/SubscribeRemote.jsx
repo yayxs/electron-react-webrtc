@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useReducer } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import useStateWithCallback from '../hooks/useStateWithCallback'
 import ZkToast from '../utils/toast'
 import MyWebsocket from '../utils/websocket'
 import Janus from '../utils/janus'
@@ -33,21 +34,13 @@ function SubscribeRemote() {
     video_device_label: '',
   })
 
-  const [tidMap, setTidMap] = useState({
-    [uuidv4()]: {
-      tid: '',
-      finish: null,
-    },
-  })
-
-  // const [tidMap, dispatch] = useReducer(reducer, {})
-
+  // const [tidMap, setTidMap] = useStateWithCallback({}, () => {})
+  const [tidMap, setTidMap] = useState({})
   function reducer(state, { type, payload }) {
     switch (type) {
       case 'ADD_KEY':
         // console.log('ADD_KEY', state)
         // console.log('ADD_key', payload)
-        console.log('tidMap-----111-----')
         return {
           [payload.transtraction]: {
             tid: payload.tid,
@@ -154,6 +147,7 @@ function SubscribeRemote() {
   //   setState(rest)
   //  }
   // 本地流发布 第一次默认选择设备后续由C#指定设备
+
   const loadLocalPluginHandle = () => {
     const opts = {
       plugin: 'janus.plugin.videoroom', // janus 插件
@@ -164,7 +158,8 @@ function SubscribeRemote() {
         pluginHandle.current = plugin
         // 2 发送第一条消息
         sendFirstData()
-        //3 janus 事件 首先是join 加入
+        //3 janus 事件 首先是join 加入 成功了之后才改变数据
+        console.log('tidMap', tidMap)
         switchTypeEvent(
           'join',
           {
@@ -174,6 +169,7 @@ function SubscribeRemote() {
           },
           'auto_join'
         )
+        console.log('tidMap', tidMap)
       },
 
       /**
@@ -212,7 +208,6 @@ function SubscribeRemote() {
             finishOrder(transaction, { code: error_code, reason: error })
           }
         } else {
-          console.log('tidMap', tidMap)
           if (transaction in tidMap) {
             finishOrder(transaction, { code: 0, reason: 'success' })
           }
@@ -286,6 +281,7 @@ function SubscribeRemote() {
    * 根据指令映射janus事件
    */
   const switchTypeEvent = (type, data, tid) => {
+    console.log('switchTypeEvent函数执行')
     const transtraction = uuidv4()
     if (tid) {
       // dispatch({
@@ -299,8 +295,6 @@ function SubscribeRemote() {
       // })
 
       setTidMap((oldVal) => {
-        console.log('oldVal', oldVal)
-
         const newVal = {
           [transtraction]: {
             tid,
@@ -337,14 +331,10 @@ function SubscribeRemote() {
             },
           },
         }
-        // console.log(newVal)
-        // console.log('newVal', newVal)
-
         return {
           ...newVal,
         }
       })
-      // setTidMap()
     }
     console.log('type--2', type)
     // 开始根据不同的type类型处理数据
