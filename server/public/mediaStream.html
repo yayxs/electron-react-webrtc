@@ -6,7 +6,21 @@
     <title>Document</title>
   </head>
   <body>
+    <div>
+      <label for="">audioinput</label>
+      <select name="" id="audioSource"></select>
+    </div>
+    <div>
+      <label for="">audiooutput</label>
+      <select name="" id="audioOutputSource"></select>
+    </div>
+    <div>
+      <label for="">videoinput</label>
+      <select name="" id="videoSource"></select>
+    </div>
     <video id="player" autoplay playsinline></video>
+    <!-- 兼容不同的浏览器实现 -->
+    <script src="https://webrtchacks.github.io/adapter/adapter-latest.js"></script>
     <script src="./js/client.js"></script>
   </body>
 </html>

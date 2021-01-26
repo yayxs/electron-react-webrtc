@@ -9,29 +9,33 @@ if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
   console.log(`your browser not support  navigator.mediaDevices.getUserMedia`)
 } else {
   const constraints = {
-    video: true,
-    audio: true,
+    video: true, // 既有视频
+    audio: true, // 又有音频
   }
   navigator.mediaDevices
     .getUserMedia(constraints)
     .then(getMediaStream)
+    .then(getListDevices)
     .catch(handleError)
 }
 
 function getMediaStream(stream) {
+  // 同意访问音视频数据
   try {
     const player = getEle('#player')
     player.srcObject = stream
+    // 获取视频流成功之后然后创建设备选择
+    return navigator.mediaDevices.enumerateDevices()
   } catch (error) {}
 }
 
 if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
   console.log(`your browser not support`)
 } else {
-  navigator.mediaDevices
-    .enumerateDevices()
-    .then(getListDevices)
-    .catch(handleError)
+  // navigator.mediaDevices
+  //   .enumerateDevices()
+  //   .then(getListDevices)
+  //   .catch(handleError)
 }
 /**
  * 设备分组

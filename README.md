@@ -23,7 +23,7 @@
 - QT
 - NW.js
 
-## About Webrtc （More read ./docs/note.md）
+## About Webrtc （More read [note](https://github.com/yayxs/electron-react-webrtc/blob/master/docs/note.md)）
 
 > 建立浏览器之间点对点（Peer-to-Peer）的连接
 > 实现视频流和（或）音频流或者其他任意数据的传输
@@ -53,7 +53,7 @@
 ## About `<video />` label
 
 - autoplay 自动播放
-- playsinline 使用自带
+- playsinline 直接在浏览器页面播放 
 
 ## Fast Start
 
@@ -85,6 +85,13 @@ http://localhost:3001/?local_ip=localhost&local_port=8899&janus_port=4145&janus_
 
 - 谷歌浏览器参数限制
   [https://www.cnblogs.com/Wayou/p/using_MediaDevices_getUserMedia_wihtout_https.html](https://www.cnblogs.com/Wayou/p/using_MediaDevices_getUserMedia_wihtout_https.html)
+
+## Example
+
+你可以直接进入`server` `web` 服务器，然后启动，点击对应的`xxx.html` 页面，比如 
+
+- `mediaDevices.html` 用来获取设备
+- `mediaStream.html` 用来获取视频流然后渲染至web浏览器页面
 
 ## Git
 

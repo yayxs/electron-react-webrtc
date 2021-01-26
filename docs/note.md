@@ -46,3 +46,7 @@ npm i -g forever
 
 - 音频大小 延迟
 - 视频的分辨率等等
+
+## getUserMedia的不同实现
+
+`adapter`
