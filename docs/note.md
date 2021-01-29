@@ -47,6 +47,30 @@ npm i -g forever
 - 音频大小 延迟
 - 视频的分辨率等等
 
-## getUserMedia的不同实现
+## getUserMedia 的不同实现
 
 `adapter`
+
+## 视频的约束
+
+- 4:3 16:9（720\*1280）
+- 比例 aspectRatio(一般不获取)
+- 帧率的多少控制码流
+- fra
+- facing 控制摄像头的反转 （前置摄像头或者后置摄像头如果是双摄像头）
+- user
+- envi
+- left
+- right
+- 是否裁剪 resize
+
+## 音频的约束
+
+- volume 0-1
+- 回音 是否开始回音消除
+- 自动增益 是否增加音量 true|false
+- 降噪 采集数据的时候是否开始
+- 延迟大小 网络状况不稳定的时候 双方实时通讯 200ms 以内 500ms latency
+- channelCount 单声道还是双声道
+- deviceID 进行设备的切换
+- groupID 音频的输入和输出 同一个物理设备

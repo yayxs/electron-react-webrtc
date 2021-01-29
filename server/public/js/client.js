@@ -1,24 +1,36 @@
 /**
  * 获取dom节点
  */
-const videoEle = getEle('#audioSource')
-const audioEle = getEle('#videoSource')
+const audioEle = getEle('#audioSource')
+const videoEle = getEle('#videoSource')
 const audioOut = getEle('#audioOutputSource')
 
-if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-  console.log(`your browser not support  navigator.mediaDevices.getUserMedia`)
-} else {
-  const constraints = {
-    video: true, // 既有视频
-    audio: true, // 又有音频
+function start(params) {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    console.log(`your browser not support  navigator.mediaDevices.getUserMedia`)
+  } else {
+    const constraints = {
+      video: {
+        width: 400,
+        height: 300,
+        frameRate: 30, // 帧率
+      }, // 是否视频
+      audio: {}, // 是否音频
+    }
+    navigator.mediaDevices
+      .getUserMedia(constraints)
+      .then(getMediaStream)
+      .then(getListDevices)
+      .catch(handleError)
   }
-  navigator.mediaDevices
-    .getUserMedia(constraints)
-    .then(getMediaStream)
-    .then(getListDevices)
-    .catch(handleError)
 }
-
+/**
+ * 加载
+ */
+start()
+videoEle.onchange = () => {
+  console.log(123)
+}
 function getMediaStream(stream) {
   // 同意访问音视频数据
   try {
@@ -102,3 +114,5 @@ function handleGrouping(devices) {
 function getEle(selectStr) {
   return document.querySelector(selectStr)
 }
+
+function name(params) {}
